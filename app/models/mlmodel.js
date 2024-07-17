@@ -32,5 +32,5 @@ const ModelSchema = new mongoose.Schema({
     },
   }, { timestamps: true });
   
-  const mlModel = models.MLModels || mongoose.model("MLModels", ModelSchema);
+  const mlModel = models.mlmodels || mongoose.model("mlmodels", ModelSchema);
 export default mlModel;
