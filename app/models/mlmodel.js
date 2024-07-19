@@ -14,23 +14,28 @@ const ModelSchema = new mongoose.Schema({
         type: [String], 
         required: true 
     },
-    onnxFilePath: { 
+    fileName: { 
         type: String, 
         // required: true 
     },
+    
+    fileName: { 
+        type: String, 
+        // required: true 
+    },
+
     typeCase: { 
         type: String, 
-        enum: ['Tabular', 'Image'], 
-        required: true 
     },
     framework: { 
         type: String, 
-        required: true
+       
     },
     description: { 
-        type: String, required: true 
+        type: String,
+       
     },
   }, { timestamps: true });
   
-  const mlModel = models.mlmodels || mongoose.model("mlmodels", ModelSchema);
-export default mlModel;
+  const form = models.forms || mongoose.model("forms", ModelSchema);
+export default form;

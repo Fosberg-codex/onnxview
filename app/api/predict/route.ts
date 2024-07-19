@@ -1,40 +1,51 @@
 import { NextResponse } from 'next/server';
+import { uploadFileToBlob, readFileFromBlob } from '@/app/lib/azureBlob';
 import { connectMongoDB } from '@/app/lib/mongodb';
-import mlModel from '@/app/models/mlmodel';
-import { runOnnxPrediction, validateInput } from '@/app/lib/onnxruntime';
-import fs from 'fs/promises';
+import form from '@/app/models/mlmodel'; // Ensure correct import
+import * as ort from 'onnxruntime-node';
+import fs from 'fs';
 import path from 'path';
 
-export async function POST(request:any) {
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+export async function POST(request: any) {
+  await connectMongoDB();
+
   try {
-    const { modelId, inputData } = await request.json();
+    const { formId, inputValues } = await request.json();
 
-    await connectMongoDB();
-    
-    const model = await mlModel.findById(modelId);
-    if (!model) {
-      return NextResponse.json({ error: 'Model not found' }, { status: 404 });
+    // Fetch form data using Mongoose model
+    const formData = await form.findById(formId);
+
+    if (!formData) {
+      return NextResponse.json({ success: false, error: 'Form not found' }, { status: 404 });
     }
 
-    // Validate input data
-    try {
-      validateInput(inputData, model.numberOfFeatures);
-    } catch (validationError:any) {
-      return NextResponse.json({ error: validationError.message }, { status: 400 });
-    }
+    // Download ONNX model from Azure Blob Storage
+    const modelFilePath = await readFileFromBlob(formData.onnxFileName);
 
-    // Construct the full path to the ONNX file
-    const onnxFilePath = path.join(process.cwd(), 'public', model.onnxFilePath);
+    // Read the ONNX model file as an ArrayBuffer
+    const modelArrayBuffer:any = fs.readFileSync(path.resolve(modelFilePath)).buffer;
 
-    // Read the ONNX file as a Buffer
-    const modelBuffer = await fs.readFile(onnxFilePath);
+    // Create ONNX session from the ArrayBuffer
+    const session = await ort.InferenceSession.create(modelArrayBuffer);
 
-    // Run prediction
-    const prediction = await runOnnxPrediction(modelBuffer, inputData, model.typeCase);
+    // Prepare input tensor
+    const inputTensor = new ort.Tensor('float32', Float32Array.from(inputValues), [1, formData.numberOfFeatures]);
 
-    return NextResponse.json({ prediction });
-  } catch (error:any) {
-    console.error('Prediction error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    // Run inference
+    const feeds = { input: inputTensor };
+    const outputMap = await session.run(feeds);
+    const outputTensor:any = outputMap.output;
+    const predictions = Array.from(outputTensor.data);
+
+    return NextResponse.json({ success: true, predictions }, { status: 200 });
+  } catch (error) {
+    console.error('Error making prediction:', error);
+    return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
   }
 }
