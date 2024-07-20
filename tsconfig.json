@@ -3,6 +3,8 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "target": "ES2015", // or a higher version like ES2016, ES2017, etc.
+    "downlevelIteration": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -21,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/preta/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/preta/route.ts"],
   "exclude": ["node_modules"]
 }

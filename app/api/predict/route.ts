@@ -1,16 +1,8 @@
 import { NextResponse } from 'next/server';
-import { uploadFileToBlob, readFileFromBlob } from '@/app/lib/azureBlob';
+import { readFileFromBlob } from '@/app/lib/azureBlob';
 import { connectMongoDB } from '@/app/lib/mongodb';
 import form from '@/app/models/mlmodel'; // Ensure correct import
 import * as ort from 'onnxruntime-node';
-import fs from 'fs';
-import path from 'path';
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
 export async function POST(request: any) {
   await connectMongoDB();
@@ -18,34 +10,129 @@ export async function POST(request: any) {
   try {
     const { formId, inputValues } = await request.json();
 
+    console.log(formId, "is the form id")
     // Fetch form data using Mongoose model
     const formData = await form.findById(formId);
 
+    console.log("formData here",formData)
+    console.log("inputValues here", inputValues)
+
     if (!formData) {
-      return NextResponse.json({ success: false, error: 'Form not found' }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'Form not found check formId' }, { status: 404 });
+    }
+
+    if(!formData.fileName){
+      return NextResponse.json({ success: false, error: 'such file name does not exist' }, { status: 404 });
     }
 
     // Download ONNX model from Azure Blob Storage
-    const modelFilePath = await readFileFromBlob(formData.onnxFileName);
+    const modelBuffer = await readFileFromBlob(formData.fileName);
 
-    // Read the ONNX model file as an ArrayBuffer
-    const modelArrayBuffer:any = fs.readFileSync(path.resolve(modelFilePath)).buffer;
-
-    // Create ONNX session from the ArrayBuffer
-    const session = await ort.InferenceSession.create(modelArrayBuffer);
+    // Create ONNX session from the buffer
+    const session = await ort.InferenceSession.create(modelBuffer);
 
     // Prepare input tensor
     const inputTensor = new ort.Tensor('float32', Float32Array.from(inputValues), [1, formData.numberOfFeatures]);
 
     // Run inference
-    const feeds = { input: inputTensor };
-    const outputMap = await session.run(feeds);
-    const outputTensor:any = outputMap.output;
-    const predictions = Array.from(outputTensor.data);
+    const feeds = { float_input: inputTensor }; // Ensure 'float_input' matches your model's input name
+    const results = await session.run(feeds);
 
-    return NextResponse.json({ success: true, predictions }, { status: 200 });
-  } catch (error) {
+    // Get the output tensor (assuming there's only one output)
+    const outputTensor = Object.values(results)[0] 
+
+
+    if (!outputTensor || !outputTensor.data) {
+      throw new Error('Invalid model output structure');
+    }
+
+    // Convert the output tensor to a regular array
+    const predictions = Array.from(outputTensor.data as Float32Array);
+
+    return NextResponse.json({ 
+      success: true, 
+      predictions,
+      outputShape: outputTensor.dims 
+    }, { status: 200 });
+
+  } catch (error:any) {
     console.error('Error making prediction:', error);
-    return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Internal Server Error', 
+      details: error.message 
+    }, { status: 500 });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { NextResponse } from 'next/server';
+// import { uploadFileToBlob, readFileFromBlob } from '@/app/lib/azureBlob';
+// import { connectMongoDB } from '@/app/lib/mongodb';
+// import form from '@/app/models/mlmodel'; // Ensure correct import
+// import * as ort from 'onnxruntime-node';
+// import fs from 'fs';
+// import path from 'path';
+
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
+
+// export async function POST(request: any) {
+//   await connectMongoDB();
+
+//   try {
+//     const { formId, inputValues } = await request.json();
+
+//     // Fetch form data using Mongoose model
+//     const formData = await form.findById(formId);
+
+//     if (!formData) {
+//       return NextResponse.json({ success: false, error: 'Form not found' }, { status: 404 });
+//     }
+
+//     // Download ONNX model from Azure Blob Storage
+//     const modelFilePath = await readFileFromBlob(formData.onnxFileName);
+
+//     // Read the ONNX model file as an ArrayBuffer
+//     const modelArrayBuffer:any = fs.readFileSync(path.resolve(modelFilePath)).buffer;
+
+//     // Create ONNX session from the ArrayBuffer
+//     const session = await ort.InferenceSession.create(modelArrayBuffer);
+
+//     // Prepare input tensor
+//     const inputTensor = new ort.Tensor('float32', Float32Array.from(inputValues), [1, formData.numberOfFeatures]);
+
+//     // Run inference
+//     const feeds = { input: inputTensor };
+//     const outputMap = await session.run(feeds);
+//     const outputTensor:any = outputMap.output;
+//     const predictions = Array.from(outputTensor.data);
+
+//     return NextResponse.json({ success: true, predictions }, { status: 200 });
+//   } catch (error) {
+//     console.error('Error making prediction:', error);
+//     return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
+//   }
+// }

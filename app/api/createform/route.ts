@@ -51,3 +51,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
   }
 }
+
+export async function GET(req:any){
+
+  try{
+    const models = await form.find({})
+
+    return NextResponse.json(models)
+  } catch(error:any){
+    return NextResponse.json({error:error.mesaage})
+  }
+
+}

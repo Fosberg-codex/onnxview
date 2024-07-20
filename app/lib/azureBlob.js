@@ -20,6 +20,19 @@ export const readFileFromBlob = async (fileName) => {
   return downloadedContent;
 };
 
+export const deleteFromAzure = async (fileName) => {
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+
+  try {
+    await blockBlobClient.delete();
+    console.log(`Blob ${fileName} deleted successfully`);
+  } catch (error) {
+    console.error(`Failed to delete blob ${fileName}`, error.message);
+    throw new Error(`Failed to delete blob ${fileName}: ${error.message}`);
+  }
+};
+
 const streamToBuffer = async (readableStream) => {
   return new Promise((resolve, reject) => {
     const chunks = [];

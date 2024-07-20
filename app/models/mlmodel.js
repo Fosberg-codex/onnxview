@@ -19,7 +19,7 @@ const ModelSchema = new mongoose.Schema({
         // required: true 
     },
     
-    fileName: { 
+    onnxFile: { 
         type: String, 
         // required: true 
     },
