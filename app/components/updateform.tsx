@@ -9,10 +9,11 @@ interface UpdateFormProps {
     numberOfFeatures: number;
     featureNames: string[];
     description: string;
+    framework:string;
   };
 }
 
-export default function UpdateForm({ formId, initialData }: UpdateFormProps) {
+export default function UpdateForm({ formId, initialData}: UpdateFormProps) {
   const router = useRouter();
   const [formData, setFormData] = useState(initialData);
   const [file, setFile] = useState<File | null>(null);
@@ -107,6 +108,17 @@ export default function UpdateForm({ formId, initialData }: UpdateFormProps) {
           name="onnxFile"
           onChange={handleFileChange}
           className="w-full p-2 border rounded"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="framework" className="block mb-1">Framework:</label>
+        <textarea
+          id="description"
+          name="framework"
+          value={formData.framework}
+          onChange={handleInputChange}
+          className="w-full p-2 border border-black  rounded"
         />
       </div>
       

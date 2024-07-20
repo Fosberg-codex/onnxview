@@ -35,6 +35,7 @@ const page = async({ params }: { params: { id: string } }) => {
           numberOfFeatures: form.numberOfFeatures,
           featureNames: form.featureNames,
           description: form.description,
+          framework: form.framework,
         }}
       />
        </div>
