@@ -22,6 +22,8 @@ export default function Prediction ({ formId, featureNames }: PredictionProps) {
   }
 
   const handlePredict = async () => {
+
+    setLoading(true); 
     try {
       const response = await fetch('/api/predict', {
         method: 'POST',
@@ -33,10 +35,12 @@ export default function Prediction ({ formId, featureNames }: PredictionProps) {
           inputValues: featureNames.map(name => inputValues[name] || 0)
         })
       })
-
+  
+      
       if (response.ok) {
-        setLoading(true)
+        
         const data = await response.json()
+        setLoading(false); 
         setPrediction(data.predictions)
       } else {
         setError(true)
@@ -58,7 +62,7 @@ export default function Prediction ({ formId, featureNames }: PredictionProps) {
             {featureName}:
           </label>
           <input
-            type='number'
+           type='number'
             required
             min='0'
             step='1'
