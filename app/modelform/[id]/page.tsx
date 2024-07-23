@@ -5,7 +5,7 @@ import Prediction from '@/app/components/prediction';
 
 async function getFormDetails(id: string) {
     try{
-        const res = await fetch(`http://localhost:3000/api/createform/${id}`, { cache: 'no-cache' });
+        const res = await fetch(`http://localhost:3001/api/createform/${id}`, { cache: 'no-cache' });
         if (!res.ok) throw new Error('Failed to fetch form details');
         const data = await res.json();
         console.log(data)

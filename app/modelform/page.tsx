@@ -74,6 +74,10 @@ const page = () => {
         />
       </div>
       <div>
+          <label htmlFor="framework" className="block mb-1">Framework used:</label>
+          <input type="text" id="framework" name="framework" required className="w-full p-2 border border-black rounded" />
+        </div>
+      <div>
           <label htmlFor="description" className="block mb-1">Description:</label>
           <textarea id="description" name="description" maxLength={200} className="w-full p-2 border border-black rounded"></textarea>
       </div>
