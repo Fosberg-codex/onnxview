@@ -15,16 +15,16 @@ export default function Error({
   }, [error])
  
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button
+    <div className='m-40'>
+      <div className='text-red-700'>Something went wrong!</div>
+      <div className='p-2 bg-red-400 border border-blue'
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
         Try again
-      </button>
+      </div>
     </div>
   )
 }

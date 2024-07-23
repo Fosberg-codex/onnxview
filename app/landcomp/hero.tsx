@@ -5,7 +5,7 @@ import VideoModalButton from './videoactive';
 const Hero = () => {
   return (
     <div className='flex justify-center mt-4'>
-      <div className='w-full flex flex-col items-center gap-6 bg-pink-700 mx-8 py-24 px-16 rounded-md'>
+      <div className='w-full flex flex-col items-center gap-6 bg-custom bg-cover mx-8 py-24 px-16 rounded-md'>
         <div className='text-white text-4xl sm:text-5xl md:text-6xl font-bold text-center mt-2'>
           Test your Machine learning models faster than always
         </div>

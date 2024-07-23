@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '@/app/landcomp/nav'
 import Prediction from '@/app/components/prediction';
+import Banner from '@/app/landcomp/banner';
 
 
 async function getFormDetails(id: string) {
@@ -23,6 +24,7 @@ const page = async({ params }: { params: { id: string } }) => {
 
   return (
     <>
+    <Banner/>
     <Nav/>
     <div className='mt-12 mx-6 flex justify-center'>
     <div className=' w-8/12 flex flex-col justify-center items-center mt-4'>
