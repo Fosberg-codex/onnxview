@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import Footer from '../landcomp/footer';
+import Builtby from '../components/dot';
 
 const DocsLayout = ({ children }: any) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -9,19 +11,22 @@ const DocsLayout = ({ children }: any) => {
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   const sidebarItems = [
+    
+    { href: '/docs/save-to-onnx', title: 'Save Models to ONNX' },
     { href: '/docs/getting-started', title: 'Getting Started' },
-    { href: '/docs/installation', title: 'Installation' },
-    { href: '/docs/configuration', title: 'Configuration' },
-    { href: '/docs/api-reference', title: 'API Reference' },
-    { href: '/docs/examples', title: 'Examples' },
+    { href: '/docs/FAQ', title: 'FAQs' },
+    // { href: '/docs/installation', title: 'Installation' },
+    // { href: '/docs/configuration', title: 'Configuration' },
+    // { href: '/docs/api-reference', title: 'API Reference' },
+    // { href: '/docs/examples', title: 'Examples' },
   ];
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="bg-gray-800 text-white p-4">
+      <header className=" border-b border-1 border-gray-400 p-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold">My Docs</h1>
+          <Link href="/"><div className="text-xl font-bold px-2 py-1 text-black">ModelView docs</div></Link>
           <button 
             onClick={toggleSidebar} 
             className="lg:hidden focus:outline-none focus:ring-2 focus:ring-white"
@@ -36,7 +41,7 @@ const DocsLayout = ({ children }: any) => {
         {/* Sidebar for larger screens */}
         <aside className="hidden lg:block w-64 bg-gray-100 overflow-y-auto">
           <nav className="p-4">
-            <ul className="space-y-2">
+            <ul id='me' className="space-y-2">
               {sidebarItems.map((item) => (
                 <li key={item.href}>
                   <Link 
@@ -86,13 +91,12 @@ const DocsLayout = ({ children }: any) => {
         {/* Main content */}
         <main className="flex-1 overflow-y-auto p-4">
           {children}
+          <Builtby title="move top" link="#me"/>
         </main>
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white p-4 text-center">
-        <p>&copy; 2024 My Docs. All rights reserved.</p>
-      </footer>
+      <Footer/>
     </div>
   );
 };

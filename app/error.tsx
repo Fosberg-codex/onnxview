@@ -1,6 +1,7 @@
 'use client' // Error components must be Client Components
  
 import { useEffect } from 'react'
+import Link from 'next/link'
  
 export default function Error({
   error,
@@ -16,8 +17,8 @@ export default function Error({
  
   return (
     <div className='m-40'>
-      <div className='text-red-700'>Something went wrong!</div>
-      <div className='p-2 bg-red-400 border border-blue'
+      <div className='text-red-700'>Opps! omething went wrong!</div>
+      <div className='p-2 bg-red-400 border border-blue cursor-pointer'
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
