@@ -59,7 +59,7 @@ export async function GET(req:any){
 
     return NextResponse.json(models)
   } catch(error:any){
-    return NextResponse.json({error:error.mesaage})
+    return NextResponse.json({error:error.mesaage},{status: 500})
   }
 
 }

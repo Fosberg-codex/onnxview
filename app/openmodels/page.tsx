@@ -1,52 +1,80 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Nav from '@/app/landcomp/nav'
-import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
-const page = () => {
-
+const Page = () => {
   const [loading, setLoading] = useState(false)
-  const [data, setData] = useState<any>(null)
+  const [data, setData] = useState<any[]>([])
 
-  useEffect(()=>{
-   
-    const fetchdata = async()=>{
+  const router = useRouter()
 
-      const data = await fetch('api/createform', { cache: 'no-cache' })
-      const forms = await data.json()
-      setData(forms)
-
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const response = await fetch('api/createform', { cache: 'no-cache' })
+        const forms = await response.json()
+        
+        if (Array.isArray(forms)) {
+          setData(forms)
+        } else {
+          console.error('Fetched data is not an array:', forms)
+          setData([])
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error)
+        setData([])
+      } finally {
+        setLoading(false)
+      }
     }
 
-    fetchdata()
-
+    fetchData()
   }, [])
 
   return (
     <>
-    <Nav/>
-    <div className='mt-16 mx-6'>
-  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-y-4'>
-    {data && data.map((form:any) => (
-      <div key={form._id} className='flex flex-col gap-2 bg-gray-200 rounded-md p-4 w-[360px] h-44 flex-wrap cursor-pointer hover:border hover:border-black'>
-        <div className='text-lg font-semibold'>{form.name}</div>
-        <div>{form.description}</div>
-        <div className='flex justify-between items-center mt-2'>
-          <div className='bg-orange-600 text-white rounded-md px-2 py-1'>{form.framework}</div>
-          <div>Number of features: {form.numberOfFeatures}</div>
-        </div>
+      <Nav />
+      <div className='container mx-auto px-4 sm:px-6 lg:px-8 mt-16'>
+        {loading ? (
+          <div className="w-12 h-12 border-t-4 border-green border-solid p-2 border-black rounded-full animate-spin">
+           <Image
+            src='/plutoflow.png'
+            alt='Youtube video'
+            width={55}
+            height={55}
+          /> 
+          </div>
+        ) : (
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8'>
+            {data.map((form: any) => (
+              <div 
+              
+                key={form._id} 
+                className='bg-gray-200 rounded-lg p-4 flex flex-col justify-between shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:border hover:border-black'
+                onClick = {() => router.push(`/modelform/${form._id}`)}
+              >
+                <div>
+                  <h2 className='text-lg font-semibold mb-2 line-clamp-1'>{form.name}</h2>
+                  <p className='text-sm text-gray-600 mb-4 line-clamp-2'>{form.description}</p>
+                </div>
+                <div className='flex justify-between items-center'>
+                  <span className='bg-orange-600 text-white text-xs font-medium rounded-full px-2 py-1'>
+                    {form.framework}
+                  </span>
+                  <span className='text-sm text-gray-500'>
+                    Features: {form.numberOfFeatures}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-
-        ))
-          
-        }
-
-      </div>
-      
-    </div>
     </>
-    
   )
 }
 
-export default page
+export default Page

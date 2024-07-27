@@ -17,9 +17,9 @@ const Footer = () => {
                    @Africa Base. All Rights Reserved.
                 </div>
             </div>
-            <div className='hidden lg:block md:block font-semibold'><Link href="/">Read Docs</Link></div>
+            <div className='hidden lg:block md:block font-semibold'><Link href="/docs">Read Docs</Link></div>
             <div className='flex flex-col lg:flex-row md-flex-row items-center'>
-                <div className='mr-2 text-lg font-semibold'>Follow ModelView</div>
+                <div className='mr-2 text-lg font-semibold'>Follow PlutoFlow</div>
                 <div className='flex flex-row lg:flex-row md:flex-row'>
                 <div>
                     <Link href="">
