@@ -1,7 +1,12 @@
-const path = require('path');
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -9,16 +14,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+
   webpack: (config, { isServer }) => {
     // ONNX Runtime configuration
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        path: false,
-      };
-    }
-
     config.externals.push({
       'onnxruntime-node': 'commonjs onnxruntime-node',
     });
@@ -31,14 +29,20 @@ const nextConfig = {
     // Add rule for .onnx files
     config.module.rules.push({
       test: /\.onnx$/,
-      type: 'asset/resource',
-      generator: {
-        filename: 'static/chunks/[name].[hash][ext]',
-      },
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'static/chunks/',
+            publicPath: '_next/static/chunks/',
+          },
+        },
+      ],
     });
 
     return config;
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
