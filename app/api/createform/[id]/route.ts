@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import {connectMongoDB} from '@/app/lib/mongodb';
 import { deleteFromAzure, uploadFileToBlob } from '@/app/lib/azureBlob';
 import form from '@/app/models/mlmodel'// Import the Mongoose model
+export const rutime = "nodejs"
 
 export async function GET(
   request: Request,
