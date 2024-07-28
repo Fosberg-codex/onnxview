@@ -79,7 +79,7 @@ export default function Prediction ({ formId, featureNames }: PredictionProps) {
       <div className='flex justify-between'>
         <button
           onClick={handlePredict}
-          className='bg-pink-300 text-white px-4 py-2 rounded hover:bg-pink-500'
+          className='bg-pink-400 text-white px-4 py-2 rounded hover:bg-pink-500'
         >
           Predict
         </button>

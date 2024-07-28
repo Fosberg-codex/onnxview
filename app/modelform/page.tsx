@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import Nav from '../landcomp/nav'
 import { useRouter } from 'next/navigation';
+import Banner from '@/app/landcomp/banner';
+import Link from 'next/link';
 
 const Page = () => {
   const router = useRouter()
@@ -33,12 +35,13 @@ const Page = () => {
 
   return (
     <>
+    <Banner/>
       <Nav />
       <div className='container mx-auto px-4 sm:px-6 lg:px-8 mt-12'>
         <div className='flex flex-wrap gap-2 justify-start items-center mb-6'>
           <button className='flex justify-center px-3 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors'>Tabular data</button>
-          <button className='flex justify-center px-3 py-2 border border-black rounded-md hover:bg-gray-100 transition-colors'>Image data</button>
-          <button className='flex justify-center px-3 py-2 border border-black rounded-md hover:bg-gray-100 transition-colors'>Generative AI</button>
+          <button className='flex justify-center px-3 py-2 border border-black rounded-md hover:bg-gray-100 transition-colors'><Link href="/waitlist">Image data</Link></button>
+          <button className='flex justify-center px-3 py-2 border border-black rounded-md hover:bg-gray-100 transition-colors'><Link href="/waitlist">Generative AI</Link> </button>
         </div>
         <div className='w-full flex flex-col justify-center items-center gap-4'>
           <h1 className='text-3xl sm:text-4xl font-bold text-center'>Submit your model</h1>

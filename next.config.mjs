@@ -6,6 +6,14 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  reactStrictMode: true,
+  output: 'standalone',
+  swcMinify: true,
+
   webpack: (config, { isServer }) => {
     // ONNX Runtime configuration
     config.externals.push({

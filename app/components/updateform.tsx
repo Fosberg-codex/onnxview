@@ -135,7 +135,7 @@ export default function UpdateForm({ formId, initialData }: UpdateFormProps) {
         </div>
       </div>
       <div className='flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4'>
-        <button className="w-full sm:w-auto bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+        <button className="w-full sm:w-auto bg-pink-400 text-white px-6 py-2 rounded-md hover:bg-pink-500 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
           Update
         </button>
         <Link href={`/modelform/${formId}`}>

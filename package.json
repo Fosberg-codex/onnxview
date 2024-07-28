@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pages:build": "npx @cloudflare/next-on-pages"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.23.0",
+    "@cloudflare/next-on-pages": "^1.12.1",
     "lucide-react": "^0.411.0",
     "mongoose": "^8.5.1",
     "next": "^14.2.5",

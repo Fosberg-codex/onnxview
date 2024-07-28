@@ -1,6 +1,7 @@
 import React from 'react';
 import { Play } from 'lucide-react';
 import VideoModalButton from './videoactive';
+import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -14,7 +15,7 @@ const Hero = () => {
         </p>
         <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 mt-2 w-full sm:w-auto'>
           <button className='p-2 text-black bg-white rounded-md font-bold hover:bg-gray-100 transition duration-300 w-full sm:w-auto text-sm sm:text-base'>
-            Test your model for free
+          <Link href="/modelform">Run your model for free</Link>  
           </button>
           <VideoModalButton videoSrc="/path/to/your/demo-video.mp4"> {/* Replace with your actual video path */}
             <div className='flex gap-2 items-center justify-center p-2 text-black bg-white rounded-md font-bold cursor-pointer hover:bg-gray-100 transition duration-300 w-full sm:w-auto text-sm sm:text-base'>

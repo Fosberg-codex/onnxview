@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import Footer from '../landcomp/footer';
 import Builtby from '../components/dot';
+import Image from 'next/image';
+
 
 const DocsLayout = ({ children }: any) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,7 +28,21 @@ const DocsLayout = ({ children }: any) => {
       {/* Header */}
       <header className=" border-b border-1 border-gray-400 p-4">
         <div className="flex justify-between items-center">
-          <Link href="/"><div className="text-xl font-bold px-2 py-1 text-black">ModelView docs</div></Link>
+        <div className="flex items-center">
+            <Link href="/">
+              <div className="flex items-center gap-2 font-bold">
+                <Image
+                  src="/plutoflow.png"
+                  alt="PlutoFlow logo"
+                  width={45}
+                  height={45}
+                />
+                <div className="text-black">
+                  PlutoFlow <span className="py-1 px-1 text-sm rounded-sm bg-gray-400">experimental</span>
+                </div>
+              </div>
+            </Link>
+          </div>
           <button 
             onClick={toggleSidebar} 
             className="lg:hidden focus:outline-none focus:ring-2 focus:ring-white"
@@ -46,7 +62,7 @@ const DocsLayout = ({ children }: any) => {
                 <li key={item.href}>
                   <Link 
                     href={item.href}
-                    className="block py-2 px-4 text-blue-600 hover:bg-blue-100 rounded transition duration-150 ease-in-out"
+                    className="block py-2 px-4 text-pink-600 hover:bg-pink-100 rounded transition duration-150 ease-in-out"
                   >
                     {item.title}
                   </Link>
@@ -74,7 +90,7 @@ const DocsLayout = ({ children }: any) => {
                       <li key={item.href}>
                         <Link 
                           href={item.href}
-                          className="block py-2 px-4 text-blue-600 hover:bg-blue-100 rounded transition duration-150 ease-in-out"
+                          className="block py-2 px-4 text-pink-600 hover:bg-pink-200 rounded transition duration-150 ease-in-out"
                           onClick={toggleSidebar}
                         >
                           {item.title}

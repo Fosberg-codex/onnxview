@@ -40,7 +40,7 @@ const Nav = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">
             <div className="flex">
-              <div className="flex gap-4 bg-pink-400/60 py-2 px-4 rounded-l-sm">
+              <div className="flex gap-4 bg-pink-500 text-white py-2 px-4 rounded-l-sm">
                 {menuItems.map((item, index) => (
                   <Link key={index} href={item.url}>
                     <div className="hover:text-gray-300">{item.text}</div>
@@ -48,8 +48,8 @@ const Nav = () => {
                 ))}
               </div>
               <Link href="/modelform">
-                <div className="bg-black text-white py-2 px-4 hover:bg-gray-800 rounded-r-sm">
-                  Test your model
+                <div className="bg-black text-white py-2 px-4 hover:text-pink-500 rounded-r-sm">
+                  Run your model
                 </div>
               </Link>
             </div>
