@@ -11,11 +11,14 @@ export async function GET(
   await connectMongoDB();
   try {
     const { id } = params;
+    console.log('GET request received with ID:', id);
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ success: false, error: 'Invalid ID format' }, { status: 400 });
     }
 
     const formData = await form.findById(id);
+    console.log('Fetched formData:', formData);
 
     if (!formData) {
       return NextResponse.json({ success: false, error: 'FormData not found' }, { status: 404 });
@@ -35,11 +38,14 @@ export async function PATCH(
   await connectMongoDB();
   try {
     const { id } = params;
+    console.log('PATCH request received with ID:', id);
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ success: false, error: 'Invalid ID format' }, { status: 400 });
     }
 
     const formData = await request.formData();
+    console.log('Received formData:', formData);
     const updatedFields: Record<string, any> = {};
 
     formData.forEach((value, key) => {
@@ -51,8 +57,11 @@ export async function PATCH(
     });
 
     const onnxFile = formData.get('onnxFile') as File | null;
+    console.log('onnxFile:', onnxFile);
     if (onnxFile) {
       const oldForm = await form.findById(id);
+      console.log('Fetched oldForm:', oldForm);
+
       if (!oldForm) {
         return NextResponse.json({ success: false, error: 'Form not found' }, { status: 404 });
       }
@@ -74,6 +83,7 @@ export async function PATCH(
       { $set: updatedFields },
       { new: true }
     );
+    console.log('Updated form:', updatedForm);
 
     if (!updatedForm) {
       return NextResponse.json({ success: false, error: 'Form not found' }, { status: 404 });
