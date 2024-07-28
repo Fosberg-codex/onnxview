@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectMongoDB } from '@/app/lib/mongodb';
 import { deleteFromAzure, uploadFileToBlob } from '@/app/lib/azureBlob';
 import form from '@/app/models/mlmodel';
-import { ObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 
 export async function GET(
   request: NextRequest,
@@ -11,7 +11,7 @@ export async function GET(
   await connectMongoDB();
   try {
     const { id } = params;
-    if (!ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ success: false, error: 'Invalid ID format' }, { status: 400 });
     }
 
@@ -35,7 +35,7 @@ export async function PATCH(
   await connectMongoDB();
   try {
     const { id } = params;
-    if (!ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ success: false, error: 'Invalid ID format' }, { status: 400 });
     }
 
