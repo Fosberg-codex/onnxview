@@ -1,17 +1,26 @@
 import { NextResponse } from 'next/server';
-import {connectMongoDB} from '@/app/lib/mongodb';
+import { connectMongoDB } from '@/app/lib/mongodb';
 import { deleteFromAzure, uploadFileToBlob } from '@/app/lib/azureBlob';
-import form from '@/app/models/mlmodel'// Import the Mongoose model
-export const rutime = "nodejs"
+import form from '@/app/models/mlmodel'; // Import the Mongoose model
+
+// Define types for better type safety
+type Params = {
+  id: string;
+};
+
+type FormData = {
+  fileName?: string;
+  fileUrl?: string;
+  [key: string]: any;
+};
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
-) {
-    await connectMongoDB()
+  { params }: { params: Params }
+): Promise<NextResponse> {
+  await connectMongoDB();
   try {
     const id = params.id;
-
     const formData = await form.findById(id);
 
     if (!formData) {
@@ -25,41 +34,10 @@ export async function GET(
   }
 }
 
-//delete form page
-
-// export async function DELETE(
-//   request: Request,
-//   { params }: { params: { id: string } }
-// ) {
-//   try {
-//     const id = params.id;
-//     const formData = await form.findById(id);
-
-//     if (!formData) {
-//       return NextResponse.json({ success: false, error: 'Form not found' }, { status: 404 });
-//     }
-
-//     // Delete the ONNX file from Azure Blob Storage
-//     if (formData.fileName) {
-//       await deleteFromAzure(formData.fileName);
-//     }
-
-//     // Delete the form from MongoDB
-//     await form.findOneAndDelete({ _id: id });
-
-//     return NextResponse.json({ success: true, message: 'Form deleted successfully' });
-//   } catch (error) {
-//     console.error('Error deleting form:', error);
-//     return NextResponse.json({ success: false, error: 'Failed to delete form' }, { status: 500 });
-//   }
-// }
-
-
-//update model form
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
-) {
+  { params }: { params: Params }
+): Promise<NextResponse> {
   try {
     const id = params.id;
     if (!id) {
@@ -74,15 +52,14 @@ export async function PATCH(
       return NextResponse.json({ success: false, error: 'Invalid form data' }, { status: 400 });
     }
 
-    const updatedFields: Record<string, any> = {};
+    const updatedFields: FormData = {};
     for (const [key, value] of formData.entries()) {
-      if (key === 'featureNames') {
-        updatedFields[key] = (value as string).split(',').map((s) => s.trim());
+      if (key === 'featureNames' && typeof value === 'string') {
+        updatedFields[key] = value.split(',').map((s) => s.trim());
       } else if (key !== 'onnxFile') {
         updatedFields[key] = value;
       }
     }
-
 
     const onnxFile = formData.get('onnxFile') as File | null;
     if (onnxFile) {
@@ -96,11 +73,9 @@ export async function PATCH(
         const fileBuffer = await onnxFile.arrayBuffer();
         const fileUrl = await uploadFileToBlob(Buffer.from(fileBuffer), fileName);
 
-        // Update the form with the new file information
         updatedFields.fileName = fileName;
         updatedFields.fileUrl = fileUrl;
 
-        // Only delete the old file if the upload of the new file was successful
         if (oldForm.fileName && oldForm.fileName !== fileName) {
           await deleteFromAzure(oldForm.fileName);
         }
@@ -132,4 +107,3 @@ export async function PATCH(
     return NextResponse.json({ success: false, error: 'An unexpected error occurred' }, { status: 500 });
   }
 }
-
