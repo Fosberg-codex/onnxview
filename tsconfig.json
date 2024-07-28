@@ -3,7 +3,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "target": "ES2015", // or a higher version like ES2016, ES2017, etc.
+    "target": "es5", // or a higher version like ES2016, ES2017, etc.
     "downlevelIteration": true,
     "strict": true,
     "noEmit": true,
