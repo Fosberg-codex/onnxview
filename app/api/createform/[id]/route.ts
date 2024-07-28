@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectMongoDB } from '@/app/lib/mongodb';
 import { deleteFromAzure, uploadFileToBlob } from '@/app/lib/azureBlob';
 import form from '@/app/models/mlmodel';
+import { ObjectId } from 'mongoose';
 
 export async function GET(
   request: NextRequest,
@@ -9,7 +10,11 @@ export async function GET(
 ) {
   await connectMongoDB();
   try {
-    const id = params.id;
+    const { id } = params;
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({ success: false, error: 'Invalid ID format' }, { status: 400 });
+    }
+
     const formData = await form.findById(id);
 
     if (!formData) {
@@ -29,21 +34,21 @@ export async function PATCH(
 ) {
   await connectMongoDB();
   try {
-    const id = params.id;
-    if (!id) {
-      return NextResponse.json({ success: false, error: 'Invalid ID provided' }, { status: 400 });
+    const { id } = params;
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({ success: false, error: 'Invalid ID format' }, { status: 400 });
     }
 
     const formData = await request.formData();
     const updatedFields: Record<string, any> = {};
 
-    for (const [key, value] of formData.entries()) {
+    formData.forEach((value, key) => {
       if (key === 'featureNames' && typeof value === 'string') {
         updatedFields[key] = value.split(',').map((s) => s.trim());
       } else if (key !== 'onnxFile') {
         updatedFields[key] = value;
       }
-    }
+    });
 
     const onnxFile = formData.get('onnxFile') as File | null;
     if (onnxFile) {
