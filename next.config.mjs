@@ -10,9 +10,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  reactStrictMode: true,
-  output: 'standalone',
-  swcMinify: true,
+  // reactStrictMode: true,
+  // output: 'standalone',
+  // swcMinify: true,
 
   webpack: (config, { isServer }) => {
     // ONNX Runtime configuration
