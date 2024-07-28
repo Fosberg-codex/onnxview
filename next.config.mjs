@@ -16,6 +16,9 @@ const nextConfig = {
   },
 
   webpack: (config, { isServer }) => {
+  
+
+
     // ONNX Runtime configuration
     config.externals.push({
       'onnxruntime-node': 'commonjs onnxruntime-node',
