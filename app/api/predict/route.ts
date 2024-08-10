@@ -1,61 +1,49 @@
 import { NextResponse } from 'next/server';
-import { readFileFromBlob } from '@/app/lib/azureBlob';
-import { connectMongoDB } from '@/app/lib/mongodb';
-import form from '@/app/models/mlmodel'; // Ensure correct import
-import * as ort from 'onnxruntime-node';
+
+let readFileFromBlob;
+let connectMongoDB;
+let form;
+let runOnnxInference;
+
+async function importDependencies() {
+  const azureBlobModule = await import('@/app/lib/azureBlob');
+  const mongodbModule = await import('@/app/lib/mongodb');
+  const formModel = await import('@/app/models/mlmodel');
+  const onnxUtilsModule = await import('@/app/utils/onnxUtils');
+
+  readFileFromBlob = azureBlobModule.readFileFromBlob;
+  connectMongoDB = mongodbModule.connectMongoDB;
+  form = formModel.default;
+  runOnnxInference = onnxUtilsModule.runOnnxInference;
+}
 
 export async function POST(request: any) {
+  await importDependencies();
   await connectMongoDB();
 
   try {
     const { formId, inputValues } = await request.json();
 
-    console.log(formId, "is the form id")
-    // Fetch form data using Mongoose model
     const formData = await form.findById(formId);
-
-    console.log("formData here",formData)
-    console.log("inputValues here", inputValues)
 
     if (!formData) {
       return NextResponse.json({ success: false, error: 'Form not found check formId' }, { status: 404 });
     }
 
-    if(!formData.fileName){
+    if (!formData.fileName) {
       return NextResponse.json({ success: false, error: 'such file name does not exist' }, { status: 404 });
     }
 
-    // Download ONNX model from Azure Blob Storage
     const modelBuffer = await readFileFromBlob(formData.fileName);
 
-    // Create ONNX session from the buffer
-    const session = await ort.InferenceSession.create(modelBuffer);
-
-    // Prepare input tensor
-    const inputTensor = new ort.Tensor('float32', Float32Array.from(inputValues), [1, formData.numberOfFeatures]);
-
-    // Run inference
-    const feeds = { float_input: inputTensor }; // Ensure 'float_input' matches your model's input name
-    const results = await session.run(feeds);
-
-    // Get the output tensor (assuming there's only one output)
-    const outputTensor = Object.values(results)[0] 
-
-
-    if (!outputTensor || !outputTensor.data) {
-      throw new Error('Invalid model output structure');
-    }
-
-    // Convert the output tensor to a regular array
-    const predictions = Array.from(outputTensor.data as Float32Array);
+    const result = await runOnnxInference(modelBuffer, inputValues, formData.numberOfFeatures);
 
     return NextResponse.json({ 
       success: true, 
-      predictions,
-      outputShape: outputTensor.dims 
+      ...result
     }, { status: 200 });
 
-  } catch (error:any) {
+  } catch (error: any) {
     console.error('Error making prediction:', error);
     return NextResponse.json({ 
       success: false, 
@@ -64,8 +52,6 @@ export async function POST(request: any) {
     }, { status: 500 });
   }
 }
-
-
 
 
 

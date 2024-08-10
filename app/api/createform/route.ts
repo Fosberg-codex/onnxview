@@ -1,12 +1,23 @@
 import { NextResponse } from 'next/server';
-import { uploadFileToBlob, readFileFromBlob } from '@/app/lib/azureBlob';
-import { connectMongoDB } from '@/app/lib/mongodb';
-import form from '@/app/models/mlmodel'; // Import the Mongoose model
 
-// export const runtime = 'edge'; // or 'edge' if you prefer
+let uploadFileToBlob: (buffer: Buffer, fileName: string) => Promise<string>;
+let connectMongoDB: () => Promise<void>;
+let form: any;
+
+async function importDependencies() {
+  const { uploadFileToBlob: uploadFile } = await import('@/app/lib/azureBlob');
+  const { connectMongoDB: connect } = await import('@/app/lib/mongodb');
+  const { default: formModel } = await import('@/app/models/mlmodel');
+  
+  uploadFileToBlob = uploadFile;
+  connectMongoDB = connect;
+  form = formModel;
+}
 
 export async function POST(request: Request) {
-  await connectMongoDB(); // Ensure the database connection is established
+  await importDependencies();
+  await connectMongoDB();
+  
   try {
     const formData = await request.formData();
     const name = formData.get('name') as string;
@@ -17,12 +28,10 @@ export async function POST(request: Request) {
     const framework = formData.get('framework') as string;
     const description = formData.get('description') as string;
 
-    // Upload ONNX file to Azure Blob Storage
     const fileName = `${Date.now()}-${onnxFile.name}`;
     const fileBuffer = await onnxFile.arrayBuffer();
     const fileUrl = await uploadFileToBlob(Buffer.from(fileBuffer), fileName);
 
-    // Create document using Mongoose model
     const newForm = await form.create({
       name,
       numberOfFeatures,
@@ -41,7 +50,10 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(req: Request) {
+export async function GET() {
+  await importDependencies();
+  await connectMongoDB();
+
   try {
     const models = await form.find({});
     return NextResponse.json(models);

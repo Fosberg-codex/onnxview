@@ -1,9 +1,17 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 
-const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
-const containerName = process.env.AZURE_STORAGE_CONTAINER_NAME;
+let blobServiceClient;
+let containerName;
+
+function initializeBlobService() {
+  if (!blobServiceClient) {
+    blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
+    containerName = process.env.AZURE_STORAGE_CONTAINER_NAME;
+  }
+}
 
 export const uploadFileToBlob = async (fileBuffer, fileName) => {
+  initializeBlobService();
   const containerClient = blobServiceClient.getContainerClient(containerName);
   const blockBlobClient = containerClient.getBlockBlobClient(fileName);
 
@@ -12,6 +20,7 @@ export const uploadFileToBlob = async (fileBuffer, fileName) => {
 };
 
 export const readFileFromBlob = async (fileName) => {
+  initializeBlobService();
   const containerClient = blobServiceClient.getContainerClient(containerName);
   const blockBlobClient = containerClient.getBlockBlobClient(fileName);
 
@@ -21,6 +30,7 @@ export const readFileFromBlob = async (fileName) => {
 };
 
 export const deleteFromAzure = async (fileName) => {
+  initializeBlobService();
   const containerClient = blobServiceClient.getContainerClient(containerName);
   const blockBlobClient = containerClient.getBlockBlobClient(fileName);
 

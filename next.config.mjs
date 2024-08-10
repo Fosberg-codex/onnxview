@@ -11,9 +11,9 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
+  // experimental: {
+  //   appDir: true,
+  // },
 
   webpack: (config, { isServer }) => {
   
