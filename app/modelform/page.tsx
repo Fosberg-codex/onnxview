@@ -75,7 +75,7 @@ const Page = () => {
             </div>
             <div>
               <label htmlFor="description" className="block mb-1 font-medium">Description:</label>
-              <textarea id="description" name="description" maxLength={200} className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-transparent h-32 resize-none"></textarea>
+              <textarea id="description" name="description" maxLength={500} className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-transparent h-32 resize-none"></textarea>
             </div>
             <button 
               type="submit" 
