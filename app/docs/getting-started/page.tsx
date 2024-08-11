@@ -16,7 +16,7 @@ export default function GettingStartedPage() {
             <li>Enter unseen features on the feature inout fields to get your response</li>
           </ol>
           <p className="mb-4">
-            For more detailed instructions on using PlutoFlow Experimentl, contact <Link href="mailto:fosberg1addai@gmil.com" className="underline text-pink-500">Fosberg.</Link>
+            For more detailed instructions on using PlutoFlow Experimental, contact <Link href="mailto:fosberg1addai@gmil.com" className="underline text-pink-500">Fosberg.</Link>
             <Link href="/docs/web-app-usage" className="text-blue-600 hover:underline ml-1">
               Web App Usage Guide
             </Link>.
