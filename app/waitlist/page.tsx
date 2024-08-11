@@ -34,7 +34,7 @@ const Page = () => {
                     <h1 className='font-bold text-4xl sm:text-5xl md:text-7xl lg:text-9xl'>Save your Built model apps</h1>
                     <h2 className='font-bold text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-pink-700'>
                         Run ML Models <br className="hidden sm:inline" /> with an API 
-                        <span className='text-lg sm:text-xl md:text-2xl lg:text-3xl border bg-black text-white px-2 pt-1 ml-2 inline-block mt-2 sm:mt-0'>Join the PlutoFlow Advance waitlist below</span>
+                        <span className='text-lg sm:text-xl md:text-2xl lg:text-3xl border bg-black text-white px-2 pt-1 ml-2 inline-block mt-2 sm:mt-0'>Join the PlutoFlowW Alpha waitlist below</span>
                     </h2>
                 </div>
                 
