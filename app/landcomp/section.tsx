@@ -7,8 +7,7 @@ const Section = () => {
       <div className='flex flex-col gap-4 justify-center items-center'>
         <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-center'>Simulate your model in production</h1>
         <p className='text-center text-sm sm:text-base'>
-          your model in production your model in production your model in production your
-          model in production your model in production your model in production
+          Scientists use models to predict the future. We are building a no code inference platform for models.
         </p>
         <div className='w-full max-w-6xl'>
           <div className='relative w-full pt-[56.25%]'>
