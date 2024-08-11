@@ -15,6 +15,7 @@ export async function runOnnxInference(modelBuffer: any, inputValues: number[], 
   }
 
   const predictions = Array.from(outputTensor.data as Float32Array);
+  console.log(predictions)
 
   return {
     predictions,

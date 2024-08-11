@@ -47,7 +47,7 @@ const Page = () => {
           <h1 className='text-3xl sm:text-4xl font-bold text-center'>Submit your model</h1>
           <form onSubmit={handleSubmit} className='w-full max-w-2xl space-y-6 mb-8'>
             <div>
-              <label htmlFor="name" className="block mb-1 font-medium">Name:</label>
+              <label htmlFor="name" className="block mb-1 font-medium">Title of App:</label>
               <input type="text" id="name" name="name" required className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-transparent" />
             </div>
             <div>

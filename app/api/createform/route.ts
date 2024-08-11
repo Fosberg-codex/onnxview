@@ -2,16 +2,16 @@ import { NextResponse } from 'next/server';
 
 let uploadFileToBlob: (buffer: Buffer, fileName: string) => Promise<string>;
 let connectMongoDB: () => Promise<void>;
-let form: any;
+let modelform: any;
 
 async function importDependencies() {
   const { uploadFileToBlob: uploadFile } = await import('@/app/lib/azureBlob');
   const { connectMongoDB: connect } = await import('@/app/lib/mongodb');
-  const { default: formModel } = await import('@/app/models/mlmodel');
+  const form = await import('@/app/models/mlmodel');
   
   uploadFileToBlob = uploadFile;
   connectMongoDB = connect;
-  form = formModel;
+  modelform = form.default
 }
 
 export async function POST(request: Request) {
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     const fileBuffer = await onnxFile.arrayBuffer();
     const fileUrl = await uploadFileToBlob(Buffer.from(fileBuffer), fileName);
 
-    const newForm = await form.create({
+    const newForm = await modelform.create({
       name,
       numberOfFeatures,
       featureNames,
@@ -55,7 +55,7 @@ export async function GET() {
   await connectMongoDB();
 
   try {
-    const models = await form.find({});
+    const models = await modelform.find({});
     return NextResponse.json(models);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -42,12 +42,14 @@ export default function Prediction ({ formId, featureNames }: PredictionProps) {
       if (response.ok) {
         const data = await response.json()
         setPrediction(data.predictions)
+        //setPrediction(data.predictions[0])
       } else {
         setError(true)
         console.error('Prediction failed')
       }
     } catch (error) {
       setError(true)
+      alert(error)
       console.error('Error making prediction:', error)
     } finally {
       setLoading(false)
@@ -55,11 +57,11 @@ export default function Prediction ({ formId, featureNames }: PredictionProps) {
   }
 
   return (
-    <div className='mt-8'>
+    <div className='mt-4'>
       <div className='text-xl font-semibold mb-2 self-start'>
         Make a Prediction
       </div>
-      {featureNames.map(featureName => (
+      {featureNames && featureNames.map(featureName => (
         <div key={featureName} className='mb-3'>
           <label htmlFor={featureName} className='block mb-1'>
             {featureName}:
@@ -79,7 +81,7 @@ export default function Prediction ({ formId, featureNames }: PredictionProps) {
       <div className='flex justify-between'>
         <button
           onClick={handlePredict}
-          className='bg-pink-400 text-white px-4 py-2 rounded hover:bg-pink-500'
+          className='bg-pink-400 text-white px-2 py-1 rounded  border border-black hover:bg-pink-500'
         >
           Predict
         </button>
@@ -96,7 +98,7 @@ export default function Prediction ({ formId, featureNames }: PredictionProps) {
       )}
 
       {error && (
-        <div className='mt-6 border flex flex-col gap-4 border-gray-200 rounded py-4 px-6'>
+        <div className='mt-6 border flex flex-col items-center gap-4 border-gray-200 rounded py-4 px-6'>
           <div>
             <CircleX size={35} />
           </div>

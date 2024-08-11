@@ -16,13 +16,13 @@
     "next": "^14.2.5",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^10.0.1",
-    "onnxruntime-node": "^1.10.0",
+    "onnxruntime-node": "^1.17.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
