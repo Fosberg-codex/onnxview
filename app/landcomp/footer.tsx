@@ -14,7 +14,7 @@ const Footer = () => {
 
                 </div>
                 <div>
-                   @Africa Base. All Rights Reserved.
+                   Africa Base. All Rights Reserved.
                 </div>
             </div>
             <div className='hidden lg:block md:block font-semibold hover:text-pink-600'><Link href="/docs">Read Docs</Link></div>
