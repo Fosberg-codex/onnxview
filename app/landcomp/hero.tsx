@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play } from 'lucide-react';
+import { Play} from 'react-feather'
 import VideoModalButton from './videoactive';
 import Link from 'next/link';
 

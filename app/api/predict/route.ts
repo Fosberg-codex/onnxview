@@ -1,67 +1,54 @@
-import { NextResponse } from 'next/server';
-// import { readFileFromBlob } from '@/app/lib/azureBlob';
-// import { connectMongoDB } from '@/app/lib/mongodb';
-// import form from '@/app/models/mlmodel';
-// import { runOnnxInference } from '@/app/utils/onnxUtils';
+import { NextRequest, NextResponse } from 'next/server';
+import { readFileFromBlob } from '@/app/lib/azureBlob';
+import { connectMongoDB } from '@/app/lib/mongodb';
+import form from '@/app/models/mlmodel';
 
+export async function GET(request: NextRequest) {
+  try {
+    await connectMongoDB();
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    return NextResponse.json({ error: 'Database connection error' }, { status: 500 });
+  }
 
-let readFileFromBlob;
-let connectMongoDB;
-let modelform;
-let runOnnxInference;
+  const formId = request.nextUrl.searchParams.get('formId');
+  console.log('Requested formId:', formId);
 
-async function importDependencies() {
-  const azureBlobModule = await import('@/app/lib/azureBlob');
-  const mongodbModule = await import('@/app/lib/mongodb');
-  const form = await import('@/app/models/mlmodel');
-  const onnxUtilsModule = await import('@/app/utils/onnxUtils');
-
-  readFileFromBlob = azureBlobModule.readFileFromBlob;
-  connectMongoDB = mongodbModule.connectMongoDB;
-  modelform = form.default;
-  runOnnxInference = onnxUtilsModule.runOnnxInference;
-}
-
-export async function POST(request: any) {
-  await importDependencies();
-  await connectMongoDB();
+  if (!formId) {
+    console.error('Missing formId parameter');
+    return NextResponse.json({ error: 'Missing formId parameter' }, { status: 400 });
+  }
 
   try {
-    const { formId, inputValues } = await request.json();
-
-    const formData = await modelform.findById(formId);
+    const formData = await form.findById(formId);
 
     if (!formData) {
-      return NextResponse.json({ success: false, error: 'Form not found check formId' }, { status: 404 });
+      console.error(`Form not found for formId: ${formId}`);
+      return NextResponse.json({ error: 'Form not found' }, { status: 404 });
     }
 
     if (!formData.fileName) {
-      return NextResponse.json({ success: false, error: 'such file name does not exist' }, { status: 404 });
+      console.error(`Model file not found for formId: ${formId}`);
+      return NextResponse.json({ error: 'Model file not found' }, { status: 404 });
     }
 
+    console.log(`Attempting to read file: ${formData.fileName}`);
     const modelBuffer = await readFileFromBlob(formData.fileName);
 
-    const result = await runOnnxInference(modelBuffer, inputValues, formData.numberOfFeatures);
-    console.log(result)
-
-    return NextResponse.json(result);
-
-  } catch (error: any) {
-    console.error('Error making prediction:', error);
-    return NextResponse.json({ 
-      success: false, 
-      error: 'Internal Server Error', 
-      details: error.message 
-    }, { status: 500 });
+    console.log(`Successfully retrieved model for formId: ${formId}`);
+    return new NextResponse(modelBuffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': `attachment; filename="${formData.fileName}"`,
+      },
+    });
+  } catch (error) {
+    console.error('Error retrieving model:', error);
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
-
-
-
-
-
-
-
-
-
-

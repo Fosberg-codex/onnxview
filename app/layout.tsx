@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { env } from 'onnxruntime-web';
+
+// Set the base path for ONNX Runtime Web WASM files
+env.wasm.wasmPaths = '/wasm/';
 
 const inter = Inter({ subsets: ["latin"] });
 

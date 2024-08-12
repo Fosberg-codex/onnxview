@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { X, Menu } from 'react-feather'
 import Footer from '../landcomp/footer';
 import Builtby from '../components/dot';
 import Image from 'next/image';

@@ -3,27 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "tsc --noEmit && next build",
-    "build:skip-types": "tsc --noEmit --skipLibCheck && next build",
+    "dev": "npm run copy-wasm && next dev",
+    "build": "npm run copy-wasm && tsc --noEmit && next build",
+    "build:skip-types": "npm run copy-wasm && tsc --noEmit --skipLibCheck && next build",
     "start": "next start",
+    "copy-wasm": "node scripts/copy-wasm.js",
     "lint": "next lint"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.23.0",
-    "lucide-react": "^0.411.0",
     "mongoose": "^8.5.1",
     "next": "^14.2.5",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^10.0.1",
-    "onnxruntime-node": "^1.17.0",
+    "onnxruntime-web": "^1.18.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-feather": "^2.0.10"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18",
+    "copy-webpack-plugin": "^12.0.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "file-loader": "^6.2.0",
