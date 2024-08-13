@@ -35,8 +35,9 @@ const Page = () => {
 
   return (
     <>
-    <Banner/>
+    
       <Nav />
+      <Banner/>
       <div className='container mx-auto px-4 sm:px-6 lg:px-8 mt-12'>
         <div className='flex flex-wrap gap-2 justify-start items-center mb-6'>
           <button className='flex justify-center px-3 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors'>Tabular data</button>
