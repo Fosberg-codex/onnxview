@@ -20,13 +20,13 @@ const Hero = () => {
                 <div className='text-base sm:text-lg'>tested on PlutoFlow</div>
             </div>
 
-            <div className='w-full lg:w-1/2 mt-8 lg:mt-0 hidden sm:block'>
+            <div className='w-full h-max lg:w-1/2 mt-8 lg:mt-0 hidden sm:block'>
             <Image
-            src='/thePlea.jpg'
+            src='/2.gif'
             alt='Youtube video'
             width={450}
-            height={550}
-            className='border shadow-md border-orange-200 rounded-md mx-auto'
+            height={500}
+            className=' shadow-md border-blue-900 border rounded-md mx-auto my-auto'
           />
 
             </div>
