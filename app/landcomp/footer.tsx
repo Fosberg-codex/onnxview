@@ -6,7 +6,7 @@ export const runtime = "edge";
 const Footer = () => {
   const date = new Date().getFullYear();
   return (
-    <div className='bg-blackt text-white p-4 mt-4'>
+    <div className='bg-blackt text-white p-4'>
       <div className='flex flex-col justify-center mt-12'>
         <div className='text-white text-2xl sm:text-3xl md:text-4xl text-center'>Ready to start running</div>
         <div className='text-white text-2xl sm:text-3xl md:text-4xl text-center'>your ML models in production?</div>
@@ -28,18 +28,18 @@ const Footer = () => {
           </div>
           <div className='hidden sm:block mb-4 sm:mb-0 text-center sm:text-left'>
             <div className='text-lg text-white font-semibold'>Site</div>
-            <div>Home</div>
-            <div>About</div>
+            <Link href="/"><div>Home</div></Link>
+            <Link href=''><div>About</div></Link>
           </div>
           <div className='mb-4 sm:mb-0 text-center sm:text-left'>
             <div className='text-lg text-white font-semibold'>Resources</div>
-            <div>Documentation</div>
-            <div>Open Models</div>
+            <Link href='/docs'><div>Documentation</div></Link>
+            <Link href='/openmodels'><div>Open Models</div></Link>
           </div>
           <div className='mb-4 sm:mb-0 text-center sm:text-left'>
             <div className='text-lg text-white font-semibold'>Help</div>
-            <div>Email us</div>
-            <div>Join us</div>
+            <Link href='mailto:fosberg1addai@gmail.com'><div>Email us</div></Link>
+            <Link href='/'><div>Join us</div></Link>
           </div>
         </div>
       </div>

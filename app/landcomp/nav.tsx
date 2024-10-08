@@ -25,7 +25,7 @@ const Nav = () => {
             <Link href="/">
               <div className="flex items-center gap-2 font-bold">
                 <Image
-                  src={isOpen ? "/plutoflow2.png" : "/plutoflow.png"}
+                  src={isOpen ? "/2.png" : "/plutoflow.png"}
                   alt="PlutoFlow logo"
                   width={45}
                   height={45}

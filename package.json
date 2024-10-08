@@ -13,7 +13,7 @@
   "dependencies": {
     "@azure/storage-blob": "^12.23.0",
     "mongoose": "^8.5.1",
-    "next": "^14.2.5",
+    "next": "^14.2.14",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^10.0.1",
     "onnxruntime-web": "^1.18.0",

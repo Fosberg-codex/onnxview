@@ -62,7 +62,7 @@ const DocsLayout = ({ children }: any) => {
                 <li key={item.href}>
                   <Link 
                     href={item.href}
-                    className="block py-2 px-4 text-blue-900 hover:bg-pink-100 rounded transition duration-150 ease-in-out"
+                    className="block py-2 px-4 text-blue-900 hover:bg-blue-100 rounded transition duration-150 ease-in-out"
                   >
                     {item.title}
                   </Link>

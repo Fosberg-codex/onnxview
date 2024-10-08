@@ -24,8 +24,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       
-      <Nav />
       <Banner />
+      <Nav />
+      
       <div className='container mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4'>
         <div className='max-w-4xl mx-auto'>
           <h1 className='text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 text-center'>

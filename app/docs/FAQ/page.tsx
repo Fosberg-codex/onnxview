@@ -2,9 +2,7 @@ export default function ConfigurationPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-4">Frequently Asked questions</h1>
-        <p className="mb-4">Configuring your project is easy. Here are the main steps:</p>
         <section>
-          <h2 className="text-2xl font-semibold mb-4">4. Troubleshooting and FAQs</h2>
           <ul className="list-disc list-inside space-y-2 mb-4">
             <li>
               <strong>Q: My model isn't compatible with ONNX. What should I do?</strong>
