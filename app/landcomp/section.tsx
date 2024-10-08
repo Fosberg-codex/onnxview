@@ -3,13 +3,13 @@ import Image from 'next/image'
 
 const Section = () => {
   return (
-    <div className='mt-4 mx-4 sm:mx-8 relative p-4 sm:p-8 md:p-12 lg:p-16 bg-pink-300 rounded-md'>
-      <div className='flex flex-col gap-4 justify-center items-center'>
-        <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold text-center'>Simulate your model in production</h1>
-        <p className='text-center text-sm sm:text-base'>
+    <div className='mt-4 mx-4 sm:mx-8 relative p-4 sm:p-8 md:p-12 lg:p-16 rounded-md '>
+      <div className='flex flex-col gap-4 justify-center items-center '>
+        
+        <p className='text-center text-base sm:text-base text-blue-900'>
           Scientists use models to predict the future. We are building a no code inference platform for models.
         </p>
-        <div className='w-full max-w-6xl'>
+        <div className='w-full max-w-6xl border-2  border-blue-950 rounded-md'>
           <div className='relative w-full pt-[56.25%]'>
             <Image
               src="/oonx.jpg"

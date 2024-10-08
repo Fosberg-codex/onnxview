@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import Nav from '@/app/landcomp/nav'
+import Nav from '@/app/landcomp/nav2'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -63,7 +63,7 @@ const Page = () => {
                   <p className='text-sm text-gray-600 mb-4 line-clamp-2'>{form.description}</p>
                 </div>
                 <div className='flex justify-between items-center'>
-                  <span className='bg-orange-600 text-white text-xs font-medium rounded-md px-2 py-1'>
+                  <span className='bg-blue-600 text-white text-xs font-medium rounded-md px-2 py-1'>
                     {form.framework}
                   </span>
                   <span className='text-sm text-gray-500'>

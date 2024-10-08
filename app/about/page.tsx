@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from '../landcomp/nav'
+import Nav from '../landcomp/nav2'
 import Footer from '../landcomp/footer'
 import Link from 'next/link'
 
@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <>
       <Nav />
-      <div className='bg-white rounded-lg shadow-md p-6 border bordder-gray-200 mt-12 mx-4 sm:mx-8 md:mx-12 lg:mx-16'>
+      <div className='bg-white text-blackt rounded-lg shadow-md p-6 border bordder-gray-200 mt-12 mx-4 sm:mx-8 md:mx-12 lg:mx-16'>
         <div className='flex flex-col  gap-6 sm:gap-8 md:gap-10'>
           <div className='flex flex-col gap-2 sm:gap-3'>
             <h2 className='text-lg sm:text-xl md:text-2xl font-bold'>
@@ -38,7 +38,7 @@ const Page = () => {
               </p>
               <Link
                 href='mailto:fosberg1addai@gmail.com'
-                className='text-red-500 hover:text-red-600 transition-colors'
+                className='text-blue-900 hover:text-gray-300 transition-colors'
               >
                 Email Fosberg
               </Link>
@@ -58,6 +58,7 @@ const Page = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   )
 }

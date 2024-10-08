@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Script from "next/script";
-import Nav from '../landcomp/nav';
+import Nav from '../landcomp/nav2';
 import Footer from '../landcomp/footer';
 
 const Page = () => {
@@ -21,7 +21,7 @@ const Page = () => {
     return (
         <>
             <Nav />
-            <div className="fixed inset-0 bg-white pt-2 overflow-y-auto mt-16 mb-8">
+            <div className="fixed inset-0 bg-white pt-2  mt-24 mb-8">
                 {!loaded && (
                     <div className="absolute inset-0 flex items-center justify-center bg-cream">
                         <div className='flex flex-col gap-2 justify-center items-center'>
@@ -30,11 +30,11 @@ const Page = () => {
                         </div>
                     </div>
                 )}
-                <div className='flex flex-col gap-4 mx-4 sm:mx-6 md:mx-8 lg:mx-12 mt-8 '>
-                    <h1 className='font-bold text-4xl sm:text-5xl md:text-7xl lg:text-9xl'>Save your Built model apps</h1>
-                    <h2 className='font-bold text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-pink-700'>
+                <div className='flex flex-col gap-4 mx-4 sm:mx-6 md:mx-8 lg:mx-24 mt-8 '>
+                    <h1 className='font-bold text-4xl sm:text-5xl text-blackt md:text-7xl lg:text-8xl'>Save your Built <br></br> model apps</h1>
+                    <h2 className='font-bold text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-blue-900'>
                         Run ML Models <br className="hidden sm:inline" /> with an API 
-                        <span className='text-lg sm:text-xl md:text-2xl lg:text-3xl border bg-black text-white px-2 pt-1 ml-2 inline-block mt-2 sm:mt-0'>Join the PlutoFlowW Alpha waitlist below</span>
+                        <span className='text-lg sm:text-xl md:text-2xl lg:text-3xl border bg-blackt text-white px-2 pt-1 ml-2 inline-block mt-2 sm:mt-0'>Sign up below</span>
                     </h2>
                 </div>
                 

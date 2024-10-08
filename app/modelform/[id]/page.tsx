@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from '@/app/landcomp/nav'
+import Nav from '@/app/landcomp/nav2'
 import Prediction from '@/app/components/prediction';
 import Banner from '@/app/landcomp/banner';
 
@@ -35,7 +35,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             <h2 className='text-xl font-semibold mb-2'>Description</h2>
             <p className='text-gray-700 mb-4'>{form.description}</p>
             <div className='flex flex-wrap gap-4 items-center mb-4'>
-              <span className='px-3 py-1 bg-orange-500 text-white rounded-md text-sm font-medium'>
+              <span className='px-3 py-1 bg-blue-600 text-white rounded-md text-sm font-medium'>
                 {form.framework}
               </span>
               <span className='text-gray-700'>

@@ -24,7 +24,7 @@ export default function SaveToOnnxPage() {
           
           <h3 className="text-xl font-semibold mb-3">1.1 Prerequisites</h3>
           <p className="mb-4">Before you begin, make sure you have the necessary packages installed:</p>
-          <pre className="bg-pink-200 p-4 rounded overflow-x-auto mb-4">
+          <pre className="bg-blue-200 p-4 rounded overflow-x-auto mb-4">
             <code className="text-sm">pip install scikit-learn skl2onnx onnxruntime numpy</code>
           </pre>
   
@@ -37,7 +37,7 @@ export default function SaveToOnnxPage() {
           </ol>
   
           <h3 className="text-xl font-semibold mb-3">1.3 Code Example with Detailed Explanations</h3>
-          <pre className="bg-pink-200 p-4 rounded overflow-x-auto mb-4">
+          <pre className="bg-blue-200 p-4 rounded overflow-x-auto mb-4">
             <code className="text-sm">
   {`# Import necessary modules
   from skl2onnx import convert_sklearn
@@ -60,18 +60,18 @@ export default function SaveToOnnxPage() {
   
           <h3 className="text-xl font-semibold mb-3">1.4 Parameter Explanations</h3>
           <ul className="list-disc list-inside space-y-2 mb-4">
-            <li><code className="bg-pink-200 px-1 rounded">initial_type</code>: Defines the input shape and type for your model. 
+            <li><code className="bg-blue-200 px-1 rounded">initial_type</code>: Defines the input shape and type for your model. 
               <ul className="list-disc list-inside ml-6 mt-2">
-                <li><code className="bg-pink-200 px-1 rounded">None</code>: Allows for variable batch size</li>
-                <li><code className="bg-pink-200 px-1 rounded">2</code>: Number of features (adjust this to match your model's input)</li>
+                <li><code className="bg-blue-200 px-1 rounded">None</code>: Allows for variable batch size</li>
+                <li><code className="bg-blue-200 px-1 rounded">2</code>: Number of features (adjust this to match your model's input)</li>
               </ul>
             </li>
-            <li><code className="bg-pink-200 px-1 rounded">options</code>: Additional conversion options
+            <li><code className="bg-blue-200 px-1 rounded">options</code>: Additional conversion options
               <ul className="list-disc list-inside ml-6 mt-2">
-                <li><code className="bg-pink-200 px-1 rounded">'zipmap': False</code>: Disables creation of a ZipMap operator, which can improve performance</li>
+                <li><code className="bg-blue-200 px-1 rounded">'zipmap': False</code>: Disables creation of a ZipMap operator, which can improve performance</li>
               </ul>
             </li>
-            <li><code className="bg-pink-200 px-1 rounded">model</code>: Your trained scikit-learn model</li>
+            <li><code className="bg-blue-200 px-1 rounded">model</code>: Your trained scikit-learn model</li>
           </ul>
         </section>
   
@@ -80,7 +80,7 @@ export default function SaveToOnnxPage() {
           
           <h3 className="text-xl font-semibold mb-3">2.1 Prerequisites</h3>
           <p className="mb-4">Ensure you have the following packages installed:</p>
-          <pre className="bg-pink-200 p-4 rounded overflow-x-auto mb-4">
+          <pre className="bg-blue-200 p-4 rounded overflow-x-auto mb-4">
             <code className="text-sm">pip install torch torchvision onnx</code>
           </pre>
   
@@ -93,7 +93,7 @@ export default function SaveToOnnxPage() {
           </ol>
   
           <h3 className="text-xl font-semibold mb-3">2.3 Code Example with Detailed Explanations</h3>
-          <pre className="bg-pink-200 p-4 rounded overflow-x-auto mb-4">
+          <pre className="bg-blue-200 p-4 rounded overflow-x-auto mb-4">
             <code className="text-sm">
   {`import torch
   import torch.onnx
@@ -122,13 +122,13 @@ export default function SaveToOnnxPage() {
   
           <h3 className="text-xl font-semibold mb-3">2.4 Parameter Explanations</h3>
           <ul className="list-disc list-inside space-y-2 mb-4">
-            <li><code className="bg-pink-200 px-1 rounded">model</code>: Your PyTorch model class</li>
-            <li><code className="bg-pink-200 px-1 rounded">dummy_input</code>: A tensor with the same shape as your model's input</li>
-            <li><code className="bg-pink-200 px-1 rounded">export_params=True</code>: Stores the model's trained parameters in the ONNX file</li>
-            <li><code className="bg-pink-200 px-1 rounded">opset_version=10</code>: The ONNX version to use (adjust if needed)</li>
-            <li><code className="bg-pink-200 px-1 rounded">do_constant_folding=True</code>: Optimizes the model by folding constants</li>
-            <li><code className="bg-pink-200 px-1 rounded">input_names</code>, <code className="bg-pink-200 px-1 rounded">output_names</code>: Names for input and output nodes</li>
-            <li><code className="bg-pink-200 px-1 rounded">dynamic_axes</code>: Specifies which dimensions can have variable sizes (like batch size)</li>
+            <li><code className="bg-blue-200 px-1 rounded">model</code>: Your PyTorch model class</li>
+            <li><code className="bg-blue-200 px-1 rounded">dummy_input</code>: A tensor with the same shape as your model's input</li>
+            <li><code className="bg-blue-200 px-1 rounded">export_params=True</code>: Stores the model's trained parameters in the ONNX file</li>
+            <li><code className="bg-blue-200 px-1 rounded">opset_version=10</code>: The ONNX version to use (adjust if needed)</li>
+            <li><code className="bg-blue-200 px-1 rounded">do_constant_folding=True</code>: Optimizes the model by folding constants</li>
+            <li><code className="bg-blue-200 px-1 rounded">input_names</code>, <code className="bg-blue-200 px-1 rounded">output_names</code>: Names for input and output nodes</li>
+            <li><code className="bg-blue-200 px-1 rounded">dynamic_axes</code>: Specifies which dimensions can have variable sizes (like batch size)</li>
           </ul>
         </section>
       </div>

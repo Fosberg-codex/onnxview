@@ -4,64 +4,80 @@ import Link from 'next/link'
 export const runtime = "edge"; 
 
 const Footer = () => {
+  const date = new Date().getFullYear();
   return (
-    <div className='bg-black text-white p-4 mt-4'>
-        <div className='flex justify-between lg:w-11/12 md:w-11/12 w-full items-start lg:items-center md:items-center'>
-            <div className='ml-0 lg:ml-8 md:ml-8 flex flex-col items-start gap-2 text-md lg:text-base md:text-base'>
-                <div className='flex gap-0 lg:gap-2 md:gap-2 '>
-                    <div className='hidden md:block lg:block'></div>
-                  <Link href="/">  <div className='text-xl font-semibold hover:text-pink-600 cursor-pointer'>PlutoFloww</div></Link>
-
-                </div>
-                <div>
-                   @Africa Base. All Rights Reserved.
-                </div>
-            </div>
-            <div className='hidden lg:block md:block font-semibold hover:text-pink-600'><Link href="/docs">Read Docs</Link></div>
-            <div className='flex flex-col lg:flex-row md-flex-row items-center'>
-                <div className='mr-2 text-lg font-semibold'>Follow PlutoFlow</div>
-                <div className='flex flex-row lg:flex-row md:flex-row'>
-                <div>
-                    <Link href="https://www.linkedin.com/in/fosberg-addai-53a6991a7/">
-                <Image
-                        src="/LinkdIn.png"
-                        alt='LinkdIn'
-                        width={40}
-                        height={40}
-                        className='cursor-pointer'
-                        />
-                        </Link>
-                </div>
-                <div>
-                <Link href="https://x.com/FosbergAddai">
-                <Image
-                        src="/TwitterX.png"
-                        alt='Youtube video'
-                        width={40}
-                        height={40}
-                        className='cursor-pointer'
-                        />
-                </Link>
-                </div>
-                <div>
-                <Link href="mailto:fosberg1addai@gmail.com">
-                <Image
-                        src="/Email.png"
-                        alt='Email'
-                        width={56}
-                        height={56}
-                        className='cursor-pointer'
-                        />
-                </Link>
-                </div>
-
-                </div>
-                
-            </div>
-
+    <div className='bg-blackt text-white p-4 mt-4'>
+      <div className='flex flex-col justify-center mt-12'>
+        <div className='text-white text-2xl sm:text-3xl md:text-4xl text-center'>Ready to start running</div>
+        <div className='text-white text-2xl sm:text-3xl md:text-4xl text-center'>your ML models in production?</div>
+        <div className='flex flex-col sm:flex-row items-center gap-4 my-4 w-full justify-center'>
+          <div className='px-3 py-2 rounded-full bg-bluet text-base sm:text-lg text-white w-full sm:w-auto text-center'>get started for free</div>
+          <div className='px-3 py-2 rounded-full border border-bluet text-base sm:text-lg text-white w-full sm:w-auto text-center mt-2 sm:mt-0'>join the alpha waitlist</div>
         </div>
-        
-      
+        <div className='flex flex-col sm:flex-row items-center sm:items-center justify-around w-full my-8 text-gray-300 py-8 border-b border-t border-gray-600'>
+          <div className='hidden sm:block mb-4 sm:mb-0'>
+            <Link href="/">
+              <Image
+                src="/plutoflow2.png"
+                alt='PlutoFlow'
+                width={80}
+                height={80}
+                className='cursor-pointer'
+              />
+            </Link>
+          </div>
+          <div className='hidden sm:block mb-4 sm:mb-0 text-center sm:text-left'>
+            <div className='text-lg text-white font-semibold'>Site</div>
+            <div>Home</div>
+            <div>About</div>
+          </div>
+          <div className='mb-4 sm:mb-0 text-center sm:text-left'>
+            <div className='text-lg text-white font-semibold'>Resources</div>
+            <div>Documentation</div>
+            <div>Open Models</div>
+          </div>
+          <div className='mb-4 sm:mb-0 text-center sm:text-left'>
+            <div className='text-lg text-white font-semibold'>Help</div>
+            <div>Email us</div>
+            <div>Join us</div>
+          </div>
+        </div>
+      </div>
+      <div className='flex flex-col sm:flex-row justify-between items-center w-full'>
+        <div className='flex flex-col sm:flex-row items-center gap-2 text-sm sm:text-base mb-4 sm:mb-0'>
+          <Link href="/">
+            <div className='text-xl font-semibold hover:text-bluet cursor-pointer'>PlutoFlow,</div>
+          </Link>
+          <div className='text-center sm:text-left'>{date} All Rights Reserved.</div>
+        </div>
+        <div className='flex flex-col sm:flex-row items-center'>
+          <div className='mr-2 text-lg font-semibold mb-2 sm:mb-0'>Follow PlutoFlow</div>
+          <div className='flex flex-row'>
+            <div className='mr-2'>
+              <Link href="https://www.linkedin.com/in/fosberg-addai-53a6991a7/">
+                <Image
+                  src="/LinkdIn.png"
+                  alt='LinkedIn'
+                  width={40}
+                  height={40}
+                  className='cursor-pointer'
+                />
+              </Link>
+            </div>
+            <div>
+              <Link href="https://x.com/FosbergAddai">
+                <Image
+                  src="/TwitterX.png"
+                  alt='Twitter'
+                  width={40}
+                  height={40}
+                  className='cursor-pointer'
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
