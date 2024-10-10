@@ -12,7 +12,7 @@ const Footer = () => {
         <div className='text-white text-2xl sm:text-3xl md:text-4xl text-center'>your ML models in production?</div>
         <div className='flex flex-col sm:flex-row items-center gap-4 my-4 w-full justify-center'>
         <Link href='/modelform'>  <div className='px-3 py-2 rounded-full bg-bluet text-base sm:text-lg text-white w-full sm:w-auto text-center'>get started for free</div></Link>
-        <Link href='/waitlst'>  <div className='px-3 py-2 rounded-full border border-bluet text-base sm:text-lg text-white w-full sm:w-auto text-center mt-2 sm:mt-0'>join the alpha waitlist</div></Link>
+        <Link href='/waitlist'>  <div className='px-3 py-2 rounded-full border border-bluet text-base sm:text-lg text-white w-full sm:w-auto text-center mt-2 sm:mt-0'>join the alpha waitlist</div></Link>
         </div>
         <div className='flex flex-col sm:flex-row items-center sm:items-center justify-around w-full my-8 text-gray-300 py-8 border-b border-t border-gray-600'>
           <div className='hidden sm:block mb-4 sm:mb-0'>
