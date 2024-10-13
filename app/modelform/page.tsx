@@ -1,12 +1,16 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Nav from '../landcomp/nav2'
 import { useRouter } from 'next/navigation';
 import Banner from '@/app/landcomp/banner';
 import Link from 'next/link';
+import { signIn, useSession } from "next-auth/react";
 
 const Page = () => {
   const router = useRouter()
+  const { data: session, status: sessionStatus } = useSession();
+
+  
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -32,6 +36,13 @@ const Page = () => {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (sessionStatus !== "authenticated") {
+      router.replace("/auth/signin");
+    }
+  }, [sessionStatus, router]);
+
 
   return (
     <>

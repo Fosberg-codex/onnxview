@@ -1,16 +1,71 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft } from "react-feather";
 import Image from "next/image";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const router = useRouter();
 
-  const handleForgetPass = (e) => {
-    e.preventDefault();
-    // Handle forget password logic here
+  const [error, setError] = useState("");
+  // const session = useSession();
+  const { data: session, status: sessionStatus } = useSession();
+
+  useEffect(() => {
+    if (sessionStatus === "authenticated") {
+      router.replace("/dashboard");
+    }
+  }, [sessionStatus, router]);
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
   };
+
+  const handleForgetPass = async (e: any) => {
+    e.preventDefault();
+   
+
+    if (!isValidEmail(email)) {
+      setError("Email is invalid");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/forget-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      });
+      if (res.status === 400) {
+        setError("user with this email is not registered");
+      }
+      if (res.status === 200) {
+        setError("");
+        router.push("/auth/signin");
+      }
+    } catch (error) {
+      setError("Error, try again");
+      console.log(error);
+    }
+
+
+
+
+  };
+
+  if (sessionStatus === "loading") {
+    return <h1>Loading...</h1>;
+  }
+
 
   return (
     <div className="w-full text-sm">

@@ -1,17 +1,100 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { ArrowLeft } from "react-feather";
 import Image from "next/image";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-export default function Home() {
+export default function Home({params}:any) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleResetPass = (e) => {
-    e.preventDefault();
-    // Handle reset password logic here
+  console.log(params.token)
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [verified, setVerified] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  // const session = useSession();
+  const { data: session, status: sessionStatus } = useSession();
+
+useEffect(() => {
+  const verifyToken = async () => {
+    try {
+      const res = await fetch("/api/verify-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: params.token,
+        }),
+      });
+      if (res.status === 400) {
+        setError("invalid token or has expired");
+        setVerified(true);
+      }
+      if (res.status === 200) {
+        setError("");
+        setVerified(true);
+        const userData = await res.json();
+        setUser(userData);
+      }
+    } catch (error) {
+      setError("Error, try again");
+      console.log(error);
+    }
   };
+  verifyToken();
+}, [params.token]);
+
+
+
+  useEffect(() => {
+    if (sessionStatus === "authenticated") {
+      router.replace("/dashboard");
+    }
+  }, [sessionStatus, router]);
+
+
+
+  const handleResetPass = async (e: any) => {
+    e.preventDefault();
+    (!password && !confirmPassword)? setError("Enter all passwords") :(password!== confirmPassword)? setError("Passwords do not match") : setError("");
+
+    try {
+      const res = await fetch("/api/reset-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password,
+          email: user?.email
+        }),
+      });
+      if (res.status === 400) {
+        setError("something went wrong please try again");
+      }
+      if (res.status === 200) {
+        setError("");
+        router.push("/auth/signin");
+      }
+    } catch (error) {
+      setError("Error, try again");
+      console.log(error);
+    }
+
+  };
+
+  
+
+
+
+  if (sessionStatus === "loading" || !verified) {
+    return <h1>Loading...</h1>;
+  }
+
 
   return (
     <div className="w-full text-sm">

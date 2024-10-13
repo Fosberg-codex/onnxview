@@ -12,14 +12,17 @@
   },
   "dependencies": {
     "@azure/storage-blob": "^12.23.0",
+    "bcryptjs": "^2.4.3",
     "mongoose": "^8.5.1",
     "next": "^14.2.14",
+    "next-auth": "^4.24.8",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^10.0.1",
     "onnxruntime-web": "^1.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-feather": "^2.0.10"
+    "react-feather": "^2.0.10",
+    "resend": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

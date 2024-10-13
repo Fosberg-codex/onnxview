@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from './landcomp/nav2'
+import Nav from './landcomp/nav3'
 import Hero from './landcomp/hero2'
 import Section from './landcomp/section'
 import Footer from './landcomp/footer'

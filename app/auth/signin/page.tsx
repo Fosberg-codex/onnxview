@@ -1,16 +1,64 @@
 "use client";
-import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "react-feather";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignin = () => {
-    // nothing much here
+  const router = useRouter();
+  const [error, setError] = useState("");
+  // const session = useSession();
+  const { data: session, status: sessionStatus } = useSession();
+
+  useEffect(() => {
+    if (sessionStatus === "authenticated") {
+      router.replace("/modelform");
+    }
+  }, [sessionStatus, router]);
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
   };
+
+  const handleSignin = async (e: any) => {
+    e.preventDefault();
+    // const email = e.target[0].value;
+    // const password = e.target[1].value;
+
+    if (!isValidEmail(email)) {
+      setError("Email is invalid");
+      return;
+    }
+
+    if (!password || password.length < 8) {
+      setError("Password is invalid");
+      return;
+    }
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (res?.error) {
+      setError("Invalid email or password");
+      if (res?.url) router.replace("/dashboard");
+    } else {
+      setError("");
+    }
+  };
+
+  if (sessionStatus === "loading") {
+    return <h1>Loading...</h1>;
+  }
+
 
   return (
     <div className="w-full text-sm">
@@ -30,7 +78,7 @@ export default function Home() {
             />
           </div>
           <div className="text-lg font-semibold">Log in to Plutoflow</div>
-          <div>Don't have an account? <Link href='/signup' className="text-blue-700">Sign up.</Link></div>
+          <div>Don't have an account? <Link href='/auth/signup' className="text-blue-700">Sign up.</Link></div>
           <form className="flex flex-col justify-center items-start w-full">
             <label htmlFor="email" className="mt-2">Email</label>
             <input 
@@ -43,7 +91,7 @@ export default function Home() {
             />
             <div className="flex flex-col sm:flex-row justify-between w-full mt-2 mb-1">
               <label htmlFor="password">Password</label>
-              <div className="text-blue-700 text-right sm:text-left mt-1 sm:mt-0">forgot password</div>
+              <Link href='/auth/forget-password' className="text-blue-700 text-right sm:text-left mt-1 sm:mt-0">forgot password</Link>
             </div>
             <input 
               type="password" 
