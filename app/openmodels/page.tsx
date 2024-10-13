@@ -3,12 +3,23 @@ import React, { useState, useEffect } from 'react'
 import Nav from '@/app/landcomp/nav2'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { signIn, useSession } from "next-auth/react";
 
 const Page = () => {
+
+  const { data: session, status: sessionStatus } = useSession();
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<any[]>([])
 
-  const router = useRouter()
+  useEffect(() => {
+    if (sessionStatus !== "authenticated") {
+      router.replace("/auth/signin");
+    }
+  }, [sessionStatus, router]);
+  
+
+ 
 
   useEffect(() => {
     const fetchData = async () => {

@@ -3,8 +3,20 @@ import React, { useEffect, useState } from 'react'
 import Script from "next/script";
 import Nav from '../landcomp/nav2';
 import Footer from '../landcomp/footer';
+import { useRouter } from 'next/navigation';
+import { signIn, useSession } from "next-auth/react";
 
 const Page = () => {
+    const { data: session, status: sessionStatus } = useSession();
+    const router = useRouter()
+    
+    useEffect(() => {
+        if (sessionStatus !== "authenticated") {
+          router.replace("/auth/signin");
+        }
+      }, [sessionStatus, router]);
+
+
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
@@ -21,7 +33,7 @@ const Page = () => {
     return (
         <>
             <Nav />
-            <div className="fixed inset-0 bg-white pt-2  mt-24 mb-8">
+            <div className="bg-white pt-2 mt-24 mb-8 overflow-y-auto h-screen">
                 {!loaded && (
                     <div className="absolute inset-0 flex items-center justify-center bg-cream">
                         <div className='flex flex-col gap-2 justify-center items-center'>
@@ -30,7 +42,7 @@ const Page = () => {
                         </div>
                     </div>
                 )}
-                <div className='flex flex-col gap-4 mx-4 sm:mx-6 md:mx-8 lg:mx-24 mt-8 '>
+                <div className='flex flex-col gap-4 mx-4 sm:mx-6 md:mx-8 lg:mx-24 mt-8'>
                     <h1 className='font-bold text-4xl sm:text-5xl text-blackt md:text-7xl lg:text-8xl'>Save your Built <br></br> model apps</h1>
                     <h2 className='font-bold text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-blue-900'>
                         Run ML Models <br className="hidden sm:inline" /> with an API 

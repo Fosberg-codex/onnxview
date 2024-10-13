@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from '../landcomp/nav2'
+import Nav from '../landcomp/nav3'
 import Footer from '../landcomp/footer'
 import Link from 'next/link'
 

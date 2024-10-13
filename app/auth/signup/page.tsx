@@ -70,7 +70,7 @@ export default function Home() {
  
 
   return (
-    <div className="w-full text-sm">
+    <div className="w-full text-sm lg:text-md md:text-md xl:text-lg">
       <div className="flex flex-col gap-2 justify-center items-center w-full mt-4 px-4 sm:px-8 text-black">
         <Link href='/' className="flex items-center self-start gap-2 px-2 py-1 border border-gray-200 rounded-full hover:bg-gray-300">
           <ArrowLeft color="#1e3a8a" size={18} />
