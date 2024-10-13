@@ -9,7 +9,7 @@ import { signIn, useSession } from "next-auth/react";
 const Page = () => {
     const { data: session, status: sessionStatus } = useSession();
     const router = useRouter()
-    
+
     useEffect(() => {
         if (sessionStatus !== "authenticated") {
           router.replace("/auth/signin");
@@ -33,7 +33,7 @@ const Page = () => {
     return (
         <>
             <Nav />
-            <div className="bg-white pt-2 mt-24 mb-8 overflow-y-auto h-screen">
+            <div className="bg-white pt-2 mt-18 mb-8 overflow-y-auto h-screen">
                 {!loaded && (
                     <div className="absolute inset-0 flex items-center justify-center bg-cream">
                         <div className='flex flex-col gap-2 justify-center items-center'>
@@ -55,6 +55,7 @@ const Page = () => {
                     data-tally-src="https://tally.so/r/mJ0PYX?transparentBackground=1"
                     title="Sign Up for Waitlist">
                 </iframe>
+                
 
                 <Script
                     id="tally-js"
