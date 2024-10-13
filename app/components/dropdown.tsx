@@ -47,6 +47,10 @@ const UserDropdown = ({ userEmail }) => {
             <div className='text-sm py-2 px-2 '>Logout</div>
 
           </div>
+          <Link href='/' className='flex flex-row py-2 items-center gap-2 px-2  bg-gray-200 hover:bg-blue-300 hover:rounded-md'>
+          <Home color="black" size={14} strokeWidth="3" />
+          <div className='text-sm px-2 ' >Home</div>
+          </Link>
         </div>
       )}
     </div>
