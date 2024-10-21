@@ -68,7 +68,7 @@ const Footer = () => {
               <Link href="https://x.com/FosbergAddai">
                 <Image
                   src="/TwitterX.png"
-                  alt='Twitter'
+                  alt='Twitters'
                   width={40}
                   height={40}
                   className='cursor-pointer'
