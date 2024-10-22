@@ -32,7 +32,7 @@ export default function Error({
       <div className='text-center text-sm sm:text-base md:text-base lg:text-base'>
         Or contact <br /> 
         <Link href="mailto:fosberg1addai@gmail.com" className='text-pink-500 underline'>
-          Plutoflow Team
+          Plutofloww Team
         </Link>
       </div>
     </div>

@@ -44,7 +44,7 @@ const Nav = () => {
                   height={45}
                 />
                 <div className={isOpen && isMobile ? "text-white" : "text-black"}>
-                  PlutoFlow <span className={`py-1 px-1 text-sm rounded-sm ${isOpen && isMobile ? "bg-gray-600" : "bg-gray-400"}`}>Beta</span>
+                  Plutofloww <span className={`py-1 px-1 text-sm rounded-sm ${isOpen && isMobile ? "bg-gray-600" : "bg-gray-400"}`}>Beta</span>
                 </div>
               </div>
             </Link>

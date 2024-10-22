@@ -59,7 +59,7 @@ const Nav = () => {
                         isOpen && isMobile ? "text-white" : "text-black"
                       }
                     >
-                      PlutoFlow{" "}
+                      Plutofloww{" "}
                       <span
                         className={`py-1 px-1 text-sm rounded-sm ${
                           isOpen && isMobile ? "bg-gray-600" : "bg-gray-400"

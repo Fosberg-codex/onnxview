@@ -46,12 +46,12 @@ const Footer = () => {
       <div className='flex flex-col sm:flex-row justify-between items-center w-full'>
         <div className='flex flex-col sm:flex-row items-center gap-2 text-sm sm:text-base mb-4 sm:mb-0'>
           <Link href="/">
-            <div className='text-xl font-semibold hover:text-bluet cursor-pointer'>PlutoFlow,</div>
+            <div className='text-xl font-semibold hover:text-bluet cursor-pointer'>PlutofFloww,</div>
           </Link>
           <div className='text-center sm:text-left'>{date} All Rights Reserved.</div>
         </div>
         <div className='flex flex-col sm:flex-row items-center'>
-          <div className='mr-2 text-lg font-semibold mb-2 sm:mb-0'>Follow PlutoFlow</div>
+          <div className='mr-2 text-lg font-semibold mb-2 sm:mb-0'>Follow Us</div>
           <div className='flex flex-row'>
             <div className='mr-2'>
               <Link href="https://www.linkedin.com/in/fosberg-addai-53a6991a7/">
