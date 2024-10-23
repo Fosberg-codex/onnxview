@@ -24,6 +24,9 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
+      <head>  
+      <meta name="google-site-verification" content="vsx3jE1PM2M4ELIAiMBV8i-giO7-zrTek2b5E-zuVrY" />
+      </head>
       
       <body className={inter.className}>
       <SessionProvider session={session}>
