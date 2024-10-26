@@ -86,8 +86,8 @@ export default function Home() {
               className='cursor-pointer'
             />
           </div>
-          <div className="text-lg font-semibold">Log in to Plutoflow</div>
-          <div>Don't have an account? <Link href='/signin' className="text-blue-700">Sign In.</Link></div>
+          <div className="text-lg font-semibold">Create a Plutoflow account</div>
+          <div>Already have an account? <Link href='/signin' className="text-blue-700">Log In</Link></div>
           <form className="flex flex-col justify-center items-start w-full">
             <label htmlFor="email" className="mt-2">Email</label>
             <input
