@@ -30,8 +30,7 @@ const Page = () => {
             <div className='text-sm sm:text-base md:text-base'>
               <p className='mb-2 sm:mb-3'>
                 I am Fosberg, and I built this. I am into software engineering,
-                machine learning engineering, and AI engineering. I am also a
-                recent college graduate from KNUST Ghana. This should have
+                machine learning engineering, and AI engineering. Iread Bsc Physics at the university. This should have
                 existed, and I am now building it. Currently, it is maintained
                 by me and my college classmate Yakubuku Seidu, a professional
                 software engineer.
