@@ -45,7 +45,7 @@ export const POST = async (request: any) => {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Plutoflow@unicornboost.co',
+      from: 'platform@plutofloww.com',
       to: [email],
       subject: 'Reset',
       react: EmailTemplate({ text: body }),
