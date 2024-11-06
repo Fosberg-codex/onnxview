@@ -33,7 +33,7 @@ const Page = () => {
                 machine learning engineering, and AI engineering. Iread Bsc Physics at the university. This should have
                 existed, and I am now building it. Currently, it is maintained
                 by me and my college classmate Yakubuku Seidu, a professional
-                software engineer.
+                software engineer and George Appiah, deveops engineer.
               </p>
               <Link
                 href='mailto:fosberg1addai@gmail.com'
