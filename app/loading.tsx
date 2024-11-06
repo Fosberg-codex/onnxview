@@ -7,7 +7,7 @@ export default function Loading() {
             <div className="w-12 h-12 border-t-4 border-green border-solid p-2 border-black rounded-full animate-spin">
            <Image
             src='/plutoflow.png'
-            alt='Youtube video'
+            alt='Youtube video a'
             width={55}
             height={55}
           /> 
